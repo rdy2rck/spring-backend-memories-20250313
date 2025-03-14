@@ -7,9 +7,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sjh.memories_backend.common.dto.request.auth.IdCheckRequestDto;
+import com.sjh.memories_backend.common.dto.request.auth.SignInRequestDto;
 import com.sjh.memories_backend.common.dto.request.auth.SignUpRequestDto;
 import com.sjh.memories_backend.common.dto.response.ResponseDto;
+import com.sjh.memories_backend.common.dto.response.auth.SignInResponseDto;
 import com.sjh.memories_backend.common.entity.UserEntity;
+import com.sjh.memories_backend.provider.JwtProvider;
 import com.sjh.memories_backend.repository.UserRepository;
 import com.sjh.memories_backend.service.AuthService;
 
@@ -20,8 +23,10 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImplement implements AuthService {
 
   private final UserRepository userRepository;
+  private final JwtProvider jwtProvider;
   private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+  // function: 아이디 중복 확인 로직 //
   @Override
   public ResponseEntity<ResponseDto> idCheck(IdCheckRequestDto dto) {
 
@@ -39,6 +44,7 @@ public class AuthServiceImplement implements AuthService {
     return ResponseDto.success(HttpStatus.OK);
   }
 
+  // function: 회원가입 로직 //
   @Override
   public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
 
@@ -61,6 +67,34 @@ public class AuthServiceImplement implements AuthService {
     }
 
     return ResponseDto.success(HttpStatus.CREATED);
+
+  }
+
+  // function: 로그인 로직 //
+  @Override
+  public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
+
+    String accessToken = null;
+    
+    try {
+
+      String userId = dto.getUserId();
+      UserEntity userEntity = userRepository.findByUserId(userId);
+      if (userEntity == null) return ResponseDto.signInFail();
+
+      String userPassword = dto.getUserPassword();
+      String encodedPassword = userEntity.getUserPassword();
+      boolean isMatch = passwordEncoder.matches(userPassword, encodedPassword);
+      if (!isMatch) return ResponseDto.signInFail();
+
+      accessToken = jwtProvider.create(userId);
+
+    } catch(Exception exception) {
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return SignInResponseDto.success(accessToken);
 
   }
   

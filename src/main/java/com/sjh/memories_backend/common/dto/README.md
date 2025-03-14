@@ -3,11 +3,15 @@
 ---
 ## 하위 클래스 설명
 
-### Response
+### response
 - ResponseCode : 응답 코드 관리 클래스
 - ResponseDto : 응답 제어 & 출력 담당 클래스
 - ResponseMessage : 응답 메세지 관리 클래스
 
-### Request/auth
+### response/auth
+- SignUpResponseDto : 회원가입 시 응답 메세지 출력 담당 클래스
+
+### request/auth
 - IdCheckRequestDto : 아이디 중복 확인 관리 클래스
 - SignUpRequestDto : 회원가입 정보 입력 시 제한사항 관리 클래스
+- SignInRequestDto : 로그이 정보 입력 시 제한사항 관리 클래스

@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sjh.memories_backend.common.dto.request.auth.IdCheckRequestDto;
+import com.sjh.memories_backend.common.dto.request.auth.SignInRequestDto;
 import com.sjh.memories_backend.common.dto.request.auth.SignUpRequestDto;
 import com.sjh.memories_backend.common.dto.response.ResponseDto;
+import com.sjh.memories_backend.common.dto.response.auth.SignInResponseDto;
 import com.sjh.memories_backend.service.AuthService;
 
 import jakarta.validation.Valid;
@@ -34,6 +36,14 @@ public class AuthController {
     @RequestBody @Valid SignUpRequestDto requestBody
   ) {
     ResponseEntity<ResponseDto> response = authService.signUp(requestBody);
+    return response;
+  }
+
+  @PostMapping("/sign-in")
+  public ResponseEntity<? super SignInResponseDto> signIn(
+    @RequestBody @Valid SignInRequestDto requestBody
+  ) {
+    ResponseEntity<? super SignInResponseDto> response = authService.signIn(requestBody);
     return response;
   }
   

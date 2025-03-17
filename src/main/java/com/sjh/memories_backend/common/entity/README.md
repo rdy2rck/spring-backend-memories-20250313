@@ -6,3 +6,4 @@
 - MemoryTestEntity : DB의 memory_test 테이블을 Java로 표현하여 JPA가 SQL를 실행할 수 있게 해주는 클래스
 - ConcentrationTestEntity : DB의 concentration_test 테이블을 Java로 표현하여 JPA가 SQL를 실행할 수 있게 해주는 클래스
 - DiaryEntity : DB의 diary 테이블을 Java로 표현하여 JPA가 SQL를 실행할 수 있게 해주는 클래스
+- CustomOAuth2User : 사용자 지정 OAuth2 유저 객체를 설정하는 클래스

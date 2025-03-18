@@ -42,3 +42,14 @@
 6. dto/diary 폴더에 'GetDiaryResponseDto.java' 생성
 7. ResponseCode.java, ResponseMessage.java, ResponseDto.java 에 일기가 존재하지 않을 시의 에러 메세지 생성 후 추가
 8. 'DiaryService.java'와 'DiaryServiceImplement.java'에 추가한 후 DiaryRepository에 일기 숫자로 일기 'DiaryController.java'에
+
+## 일기 수정 기능 추가
+1. request/diary 폴더에서 PatchDiaryRequestDto.java 파일 생성
+2. ResponseCode.java, esponseMessage.java, ResponseDto.java에 일기 수정 권한이 없을 시의 에러 메세지 생성 후 추가
+3. DiaryService.java에 일기 수정 기능 정의 후, DiaryServiceImplement.java에 비즈니스 로직 생성
+4. DiaryEntity.java에 일기 수정(patch) 메서드 추가한 후 DiaryServiceImplement.java에 DiaryEntity에서 수정한 내용을 추가
+5. DiaryController.java에서 일기 수정을 위한 API 요청 처리 기능 추가
+
+## 일기 삭제 기능 추가
+1. DiaryService.java에 일기 삭제 기능을 정의한 후 DiaryServiceImplement.java에 비즈니스 로직 생성
+2. DiaryController.java에서 일기 삭제를 위한 API 요청 처리 기능 추가

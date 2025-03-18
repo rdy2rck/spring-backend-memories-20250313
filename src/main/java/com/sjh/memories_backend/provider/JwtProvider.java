@@ -29,7 +29,7 @@ public class JwtProvider {
   // description: sub - 사용자의 아이디, iat - 생성 시 시간, exp - 생성시간 + 9시간 //
   public String create(String userId) {
 
-    Date expiration = Date.from(Instant.now().plus(0, ChronoUnit.HOURS));
+    Date expiration = Date.from(Instant.now().plus(9, ChronoUnit.HOURS));
 
     Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 

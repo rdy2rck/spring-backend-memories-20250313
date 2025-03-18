@@ -1,5 +1,7 @@
 package com.sjh.memories_backend.config;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -18,6 +22,9 @@ import com.sjh.memories_backend.filter.JwtAuthenticationFilter;
 import com.sjh.memories_backend.handler.OAuth2SuccessHandler;
 import com.sjh.memories_backend.service.implement.OAuth2UserServiceImplement;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 // class: Spring Web 보안 설정 클래스 //
@@ -52,6 +59,7 @@ public class WebSecurityConfig {
       // description: 인가 설정 //
       .authorizeHttpRequests(request -> request
         .requestMatchers("/api/v1/auth", "/api/v1/auth/**", "/oauth2/**").permitAll()
+        .requestMatchers("/api/v1/diary", "/api/v1/diary/**").authenticated()
         .anyRequest().authenticated()
       )
       // description: OAuth 로그인 적용 //
@@ -59,6 +67,10 @@ public class WebSecurityConfig {
         .redirectionEndpoint(endpoint -> endpoint.baseUri("/oauth2/callback/*"))
         .authorizationEndpoint(endpoint -> endpoint.baseUri("/api/v1/auth/sns"))
         .userInfoEndpoint(endpoint -> endpoint.userService(oauth2UserSerivce)).successHandler(oAuth2SuccessHandler)
+      )
+      // description: 인증 또는 인가 실패에 대한 처리 //
+      .exceptionHandling(exception -> exception
+        .authenticationEntryPoint(new AuthenticationFailEntryPoint())
       )
       // description: Jwt Authentication Filter 등록 //
       .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -81,4 +93,19 @@ public class WebSecurityConfig {
     return source;
   }
   
+}
+
+class AuthenticationFailEntryPoint implements AuthenticationEntryPoint {
+
+  @Override
+  public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+      throws IOException, ServletException {
+
+        authException.printStackTrace();
+
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("{ \"code\": \"AF\", \"message\": \"Auth Fail\" }");
+  }
+
 }

@@ -40,7 +40,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
           cookie.setMaxAge(60 * 60 * 9);
 
           response.addCookie(cookie);
-          response.sendRedirect("oAuthClientMain");
+          response.sendRedirect(oAuthClientMain);
         }
         // description: 회원가입 X //
         else {
@@ -60,7 +60,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
           response.addCookie(snsIdCookie);
 
-          response.sendRedirect("oAuthClientAuth");
+          response.sendRedirect(oAuthClientAuth);
         }
       }
   

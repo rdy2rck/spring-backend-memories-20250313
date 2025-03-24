@@ -99,6 +99,8 @@ public class TestServiceImplement implements TestService {
 
     try {
       
+      concentrationTestEntities = concentrationTestRepository.findByUserIdOrderBySequenceDesc(userId); 
+
     } catch (Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();

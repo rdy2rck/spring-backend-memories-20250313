@@ -74,3 +74,16 @@
 3. TestSerivce에 기억력 테스트 검사 결과 불러오기 기능 정의한 뒤 TestServiceImplement에 비즈니스 로직 작성
 4. MemoryTestRepository에서 기억력 테스트 결과를 사용자 최근에 한 테스트 결과 순서대로 불러오도록 지정
 5. TestController에 @GetMapping("/memory") 메서드로 검사 결과 조회에 필요한 API 엔드포인트 정의
+
+### 집중력 테스트 결과 데이터 저장 (2025-03-24 09:50)
+1. dto/request 폴더와 dto/response 폴더 아래에 각각 test 폴더 생성 후 dto/request/test 폴더 아래에 PostConcentrationRequestDto.java 파일 생성, DB에 측정 시간 요청
+2. TestService에 집중력 테스트 결과 저장 기능 정의 후 TestServiceImplement에 비즈니스 로직 작성
+3. ConcentrationTestEntity로 사용자 ID과 최초 테스트 결과, 두 번째 테스트 이후 테스트 결과 엔터티 생성 후 ConcentrationTestRepository에서 사용자 ID과 테스트 결과를 저장
+4. TestController에 @PostMapping("/concentration") 메서드로 검사 결과 저장에 필요한 API 엔드포인트 정의
+
+### 집중력 테스트 결과 불러오기 (2025-03-24 10:50)
+1. vo 폴더 아래에 ConcentrationTestVO.java 생성 후 ConcentrationTestEntity의 엔터티를 이용해 ConcentrationTestVO를 생성 후 리스트로 변환
+2. response/test 폴더 아래에 GetConcentrationResponseDto.java 생성 후 DB에 기억력 테스트 결과를 불러오도록 호출
+3. TestSerivce에 기억력 테스트 검사 결과 불러오기 기능 정의한 뒤 TestServiceImplement에 비즈니스 로직 작성
+4. ConcentrationTestRepository에서 기억력 테스트 결과를 사용자 최근에 한 테스트 결과 순서대로 불러오도록 지정
+5. TestController에 @GetMapping("/Concentration") 메서드로 검사 결과 조회에 필요한 API 엔드포인트 정의

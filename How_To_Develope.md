@@ -87,3 +87,23 @@
 3. TestSerivce에 기억력 테스트 검사 결과 불러오기 기능 정의한 뒤 TestServiceImplement에 비즈니스 로직 작성
 4. ConcentrationTestRepository에서 기억력 테스트 결과를 사용자 최근에 한 테스트 결과 순서대로 불러오도록 지정
 5. TestController에 @GetMapping("/Concentration") 메서드로 검사 결과 조회에 필요한 API 엔드포인트 정의
+
+### 최근 기억력 테스트 결과 10개 불러오기 (2025-03-25 09:50)
+1. response/test 폴더 아래에 GetRecentlyMemoryResponseDto.java 생성 후
+2. TestService에 기능 정의한 뒤 TestServiceImplement에 비즈니스 로직 작성
+3. MemoryTestRepository에
+4. TestController
+
+### 최근 집중력 테스트 결과 10개 불러오기 (2025-03-25 09:50)
+1. response/test 폴더 아래에 GetRecentlyConcentrationResponseDto.java 생성 후
+2. TestService에 기능 정의한 뒤 TestServiceImplement에 비즈니스 로직 작성
+3. ConcentrationTestRepository에
+4. TestController에
+
+### 프로필 사진 이미지 저장 및 불러오기 (2025-03-25 10:50)
+1. application.properties에 Request 파일 사이즈 제한 조정 설정 추가
+2. 같은 파일에 file 작업 경로 설정 추가
+3. controller 폴더 아래에 FileController.java 파일 생성하여 서버에 파일을 저장하기 위한 로직 작성
+4. WebSecurityConfig에 파일에 대한 인증 전부 허용을 위한 코드 추가
+5. FileService 파일을 생성하여 파일 업로드 기능을 정의한 뒤에 FileServiceImplement에 비즈니스 로직 작성
+4. FileController.java

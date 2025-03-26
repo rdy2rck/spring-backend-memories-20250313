@@ -107,3 +107,15 @@
 4. WebSecurityConfig에 파일에 대한 인증 전부 허용을 위한 코드 추가
 5. FileService 파일을 생성하여 파일 업로드 기능을 정의한 뒤에 FileServiceImplement에 비즈니스 로직 작성
 4. FileController.java
+
+### ChatGPT OpenAI 서비스 연동 (2025-03-26 10:50, 11:50)
+1. application.properties에 'Open AI ChatGPT API KEY' 등록
+2. build.gradle에
+3. request/openai 폴더 아래에 CharRequestDto.java 파일 생성 후
+4. vo 폴더 아래에 GptMessageVO.java 파일 생성 후
+5. response/openai 폴더 아래에 ChatResponseDto.java 파일 생성 후
+6. vo 폴더 아래에 GptChoiceVO.java 파일 생성 후
+7. OpenAIService 파일을 생성하여 파일 업로드 기능을 정의한 뒤에 OpenAIServiceImplement에 비즈니스 로직 작성
+8. controller 폴더 아래에 OpenAIController.java 파일 생성하여
+
+### 일기에 공감 누르기 & 불러오기 (2025-03-26 15:50. 16:50)

@@ -1,5 +1,6 @@
 package com.sjh.memories_backend.controller;
 
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +19,7 @@ import com.sjh.memories_backend.common.dto.response.ResponseDto;
 import com.sjh.memories_backend.common.dto.response.diary.GetMyDiaryResponseDto;
 import com.sjh.memories_backend.service.DiaryService;
 import com.sjh.memories_backend.common.dto.response.diary.GetDiaryResponseDto;
+import com.sjh.memories_backend.common.dto.response.diary.GetEmpathyResponseDto;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -69,6 +72,23 @@ public class DiaryController {
     @AuthenticationPrincipal String userid
   ) {
     ResponseEntity<ResponseDto> response = diaryService.deleteDiary(diaryNumber, userid);
+    return response;
+  }
+
+  @GetMapping("/{diaryNumber}/empathy")
+  public ResponseEntity<? super GetEmpathyResponseDto> getEmpathy(
+    @PathVariable("diaryNumber") Integer diaryNumber
+  ) {
+    ResponseEntity<? super GetEmpathyResponseDto> response = diaryService.getEmpathy(diaryNumber);
+    return response;
+  }
+
+  @PutMapping("/{diaryNumber}/empathy")
+  public ResponseEntity<ResponseDto> putEmpathy(
+    @PathVariable("diaryNumber") Integer diaryNumber,
+    @AuthenticationPrincipal String userId
+  ) {
+    ResponseEntity<ResponseDto> response = diaryService.putEmpathy(diaryNumber, userId);
     return response;
   }
 

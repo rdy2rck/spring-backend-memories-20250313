@@ -118,4 +118,28 @@
 7. OpenAIService 파일을 생성하여 파일 업로드 기능을 정의한 뒤에 OpenAIServiceImplement에 비즈니스 로직 작성
 8. controller 폴더 아래에 OpenAIController.java 파일 생성하여
 
-### 일기에 공감 누르기 & 불러오기 (2025-03-26 15:50. 16:50)
+### 일기에 공감 수 조회 & 누르기 (2025-03-26 15:50. 16:50)
+1. entity 폴더 아래에 CommentEntity.java와 EmpathyEntity.java 생성하여 각각 댓글 데이터를 저장하는 DB 테이블과 공감 데이터를 저장하는 DB 테이블과 1대1로 매핑
+2. entity/pk 폴더 아래에 EmpathyPk.java 파일 생성해서 1번에서 받아온 엔터티의 PRIMARY KEY 받아오기
+3. repository 폴더 아래에 CommentRepository.java와 EmpathyRepository.java 파일 생성하여 댓글 관련 DB와 공감 관련 DB에 직접 연결
+4. response/diary 폴더 아래에 GetEmpathyResponseDto 파일 생성하여 공감 기능을 위해 반환할 응답 데이터를 정의
+5. DiaryService 파일에 공감 수 조회 & 누르기 기능을 정의한 후 DiaryServiceImplement에 비즈니스 로직 생성
+6. DiaryController 파일에 @GetMapping("/{diaryNumber}/empathy")메서드와 @PutMapping("/{diaryNumber}/empathy") 메서드로 공감 수 조회와 공감 누르기에 필요한 API 엔드포인트 정의
+
+1. Entity : DB와 프로젝트를 1대1로 매핑
+2. Repository : 프로젝트와 DB를 직접 연결
+3. ResponseDTO : 클라이언트에게 반환할 응답 데이터 정의
+4. Service & ServiceImplement : 비즈니스 로직 정의 & 구현
+5. Controller : API 엔드포인트 정의
+
+### 일기에 댓글 달기 & 조회 (2025-03-27 10:50)
+1. request/diary 폴더 아래에 PostCommentRequestDto.java 파일 생성 후 댓글 작성을 위해 클라이언트에게 반환할 응답 데이터를 정의
+2. DiaryService에 댓글 작성 기능을 정의한 후 DiaryServiceImplement에 비즈니스 로직 구현 시작
+3. DiaryRepository에 일기 번호로 일기 존재 여부를 파악하는 코드 생성 후 DiaryServiceImplement의 비즈니스 로직에 일기 존재 여부에 따른 응답 반환과 진행과정 작성
+4. CommentEntity에 댓글 작성을 위한 엔터티 정의 후 댓글 DB와 매핑한 뒤 DiaryServiceImplement에 댓글 작성 시 저장을 위한 과정 작성 
+5. DiaryController에 @PostMapping("/{diaryNumber}/comment") 메서드로 댓글 작성에 필요한 API 엔드포인트 정의
+6. vo 폴더 아래에 CommentVO.java 파일을 생성하여 댓글 조회에 필요한 밸류 오브젝트 정의 후 리스트 생성
+7. response/diary 폴더 아래에 GetCommentResponseDto.java 파일을 생성한 뒤 댓글 조회를 위해 클라이언트에게 반환할 응답 데이터를 정의
+8. CommentRepository에 댓글 삭제 기능과 댓글을 작성 날짜에 따라 내림차순으로 출력하는 리스트 생성을 위한 코드 작성, 이후 EmpathyRepository에 공감 취소를 위한 코드 작성
+9. DiaryService에 댓글 조회를 위한 비즈니스 로직 정의 후 DiaryServiceImplement에 비즈니스 로직 작성 & 8번의 댓글 삭제 기능과 공감 취소 기능도 추가.
+10. DiaryController에 @GetMapping("/{diaryNumber}/comment") 메서드로 댓글 조회를 위한 API 엔드포인트 정의

@@ -10,6 +10,8 @@ import com.sjh.memories_backend.common.entity.DiaryEntity;
 @Repository
 public interface DiaryRepository extends JpaRepository<DiaryEntity, Integer> {
 
+  boolean existsByDiaryNumber(Integer diaryNumber);
+
   DiaryEntity findByDiaryNumber(Integer diaryNumber);
   
   List<DiaryEntity> findByUserIdOrderByWriteDateDesc(String userId);

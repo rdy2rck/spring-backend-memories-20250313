@@ -1,6 +1,5 @@
 package com.sjh.memories_backend.controller;
 
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sjh.memories_backend.common.dto.request.diary.PatchDiaryRequestDto;
+import com.sjh.memories_backend.common.dto.request.diary.PostCommentRequestDto;
 import com.sjh.memories_backend.common.dto.request.diary.PostDiaryRequestDto;
 import com.sjh.memories_backend.common.dto.response.ResponseDto;
 import com.sjh.memories_backend.common.dto.response.diary.GetMyDiaryResponseDto;
 import com.sjh.memories_backend.service.DiaryService;
+import com.sjh.memories_backend.common.dto.response.diary.GetCommentResponseDto;
 import com.sjh.memories_backend.common.dto.response.diary.GetDiaryResponseDto;
 import com.sjh.memories_backend.common.dto.response.diary.GetEmpathyResponseDto;
 
@@ -89,6 +90,24 @@ public class DiaryController {
     @AuthenticationPrincipal String userId
   ) {
     ResponseEntity<ResponseDto> response = diaryService.putEmpathy(diaryNumber, userId);
+    return response;
+  }
+
+  @GetMapping("/{diaryNumber}/comment")
+  public ResponseEntity<? super GetCommentResponseDto> getComment(
+    @PathVariable("diaryNumber") Integer diaryNumber
+  ) {
+    ResponseEntity<? super GetCommentResponseDto> response = diaryService.getComment(diaryNumber);
+    return response;
+  }
+
+  @PostMapping("/{diaryNumber}/comment")
+  public ResponseEntity<ResponseDto> postComment(
+    @RequestBody @Valid PostCommentRequestDto requestBody,
+    @PathVariable("diaryNumber") Integer diaryNumber,
+    @AuthenticationPrincipal String userId
+  ) {
+    ResponseEntity<ResponseDto> response = diaryService.postComment(requestBody, diaryNumber, userId);
     return response;
   }
 

@@ -28,8 +28,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 // class: Spring Web 보안 설정 클래스 //
-// description: Bearer 인증 방식을 사용하기 위한 Basic 인증 미사용 //
-// description: REST API 서버로 Session 유지 하지 않음 //
+// description: Bearer 인증 방식을 사용하기 위해 Basic 인증 미사용 //
+// description: REST API 서버로 Session 유지하지 않음 //
 // description: CORS 정책은 모든 출처 및 리소스에 대해서 허용 //
 @Configurable
 @Configuration
@@ -67,7 +67,8 @@ public class WebSecurityConfig {
       .oauth2Login(oauth2 -> oauth2
         .redirectionEndpoint(endpoint -> endpoint.baseUri("/oauth2/callback/*"))
         .authorizationEndpoint(endpoint -> endpoint.baseUri("/api/v1/auth/sns"))
-        .userInfoEndpoint(endpoint -> endpoint.userService(oauth2UserSerivce)).successHandler(oAuth2SuccessHandler)
+        .userInfoEndpoint(endpoint -> endpoint.userService(oauth2UserSerivce))
+        .successHandler(oAuth2SuccessHandler)
       )
       // description: 인증 또는 인가 실패에 대한 처리 //
       .exceptionHandling(exception -> exception
@@ -92,6 +93,7 @@ public class WebSecurityConfig {
     source.registerCorsConfiguration("/**", configuration);
 
     return source;
+
   }
   
 }
@@ -99,14 +101,14 @@ public class WebSecurityConfig {
 class AuthenticationFailEntryPoint implements AuthenticationEntryPoint {
 
   @Override
-  public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-      throws IOException, ServletException {
+  public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 
         authException.printStackTrace();
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getWriter().write("{ \"code\": \"AF\", \"message\": \"Auth Fail\" }");
+        
   }
 
 }

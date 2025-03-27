@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import com.sjh.memories_backend.common.dto.response.ResponseDto;
 import com.sjh.memories_backend.common.entity.EmpathyEntity;
 
+import lombok.Getter;
+
+@Getter
 public class GetEmpathyResponseDto extends ResponseDto {
 
   private List<String> empathies;
@@ -17,7 +20,7 @@ public class GetEmpathyResponseDto extends ResponseDto {
     this.empathies = new ArrayList<>();
     for (EmpathyEntity empathyEntity: empathyEntities) {
       String userId = empathyEntity.getUserId();
-      this.empathies = empathies;
+      this.empathies.add(userId);
     }
   }
 

@@ -20,7 +20,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtProvider {
   
-  //@Value("${Secret Key 변수}") 입력 시 application.properties에 등록해둔 JWT 비밀키 사용 가능
+  // @Value("${Secret Key 변수}") 입력 시 application.properties에 등록해둔 JWT 비밀키 사용 가능
   @Value("${jwt.secret}")
   private String secretKey;
 
